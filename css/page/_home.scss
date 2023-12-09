@@ -2,3 +2,86 @@ body {
   max-width: 1440px;
   margin: 0 auto;
 }
+
+.container {
+  padding: 0 104px;
+  background-color: $background;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 21px 0 132px 0;
+}
+
+.container-header-tags {
+  display: flex;
+
+  div {
+    align-items: center;
+  }
+}
+
+.search-tags {
+  display: flex;
+  flex-direction: column;
+  margin-right: 66px;
+  border-radius: 11px;
+  background-color: white;
+}
+
+.search-tags-title {
+  padding: 16px 17px;
+  display: flex;
+
+  img {
+    width: 13px;
+    height: 6px;
+    padding-left: 63px;
+  }
+}
+
+.search-tag {
+  display: none;
+  flex-direction: column;
+
+  form {
+    position: relative;
+  }
+}
+
+.search-tags-bar {
+  width: 163px;
+  height: 36px;
+  border: 1px solid #c6c6c6;
+}
+
+.search-tags-btn {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-repeat: no-repeat;
+  background-color: white;
+  height: 14px;
+  width: 14px;
+  color: $primary;
+}
+
+.tags {
+  display: s;
+  flex-direction: column;
+}
+
+.tag {
+  padding: 13px;
+}
+
+.tag:first-child {
+  margin-top: 11px;
+}
+
+.recipes-nb {
+  padding-top: 17px;
+}

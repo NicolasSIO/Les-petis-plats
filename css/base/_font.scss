@@ -6,6 +6,23 @@ body {
   font-weight: $regular;
 }
 
-h1 {
+.title,
+.recipes-nb {
   font-family: $text-title, sans-serif;
+}
+
+.title {
+  color: $secondary;
+  font-size: 44px;
+  text-align: center;
+}
+
+.recipes-nb {
+  font-size: 21px;
+  color: $tertiary;
+}
+
+.search-tag {
+  font-size: 16px;
+  font-weight: $medium;
 }
