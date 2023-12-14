@@ -7,7 +7,8 @@ body {
 }
 
 .title,
-.recipes-nb {
+.recipes-nb,
+.card-title {
   font-family: $text-title, sans-serif;
 }
 
@@ -25,4 +26,40 @@ body {
 .search-tag {
   font-size: 16px;
   font-weight: $medium;
+}
+
+.duration {
+  font-size: 12px;
+}
+
+.card-title {
+  font-size: 18px;
+}
+
+.card-content-title {
+  text-transform: uppercase;
+  color: $primary;
+  font-size: 12px;
+  font-weight: $bold;
+  letter-spacing: 1.08px;
+}
+
+.card-content-text {
+  font-size: 14px;
+  color: $tertiary;
+  line-height: normal;
+}
+
+.card-content-recipe {
+  font-size: 14px;
+}
+
+.card-content-name {
+  font-weight: $medium;
+  line-height: normal;
+}
+
+.card-content-quantity {
+  color: $primary;
+  line-height: normal;
 }

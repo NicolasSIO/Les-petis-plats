@@ -11,7 +11,7 @@ body {
 .container-header {
   display: flex;
   justify-content: space-between;
-  padding: 21px 0 132px 0;
+  padding: 21px 0 55px 0;
 }
 
 .container-header-tags {
@@ -28,6 +28,7 @@ body {
   margin-right: 66px;
   border-radius: 11px;
   background-color: white;
+  cursor: pointer;
 }
 
 .search-tags-title {
@@ -41,8 +42,115 @@ body {
   }
 }
 
-.search-tag {
+.display-none {
   display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.search-tag {
+  flex-direction: column;
+  height: 200px;
+  overflow: hidden;
+
+  form {
+    position: relative;
+  }
+}
+
+.search-tags-bar {
+  width: 163px;
+  height: 36px;
+  border: 1px solid #c6c6c6;
+}
+
+.search-tags-btn {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-repeat: no-repeat;
+  background-color: white;
+  height: 14px;
+  width: 14px;
+  color: $primary;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+}
+
+.tag {
+  padding: 13px;
+}
+
+.tag:first-child {
+  margin-top: 11px;
+}
+
+.recipes-nb {
+  padding-top: 17px;
+}
+
+.container-main {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 37px;
+}
+
+.card {
+  position: relative;
+  border-radius: 21px;
+  background-color: white;
+  margin-bottom: 66px;
+}
+
+.card-header-img {
+  width: 100%;
+  height: 253px;
+  border-radius: 21px 21px 0 0;
+  object-fit: cover;
+}
+
+.duration {
+  position: absolute;
+  top: 21px;
+  right: 22px;
+  border-radius: 14px;
+  padding: 5px 15px;
+  background-color: $secondary;
+}
+
+.card-title {
+  margin-top: 32px;
+}
+
+.card-content {
+  padding: 0 25px;
+}
+
+.card-content-title {
+  padding-top: 29px;
+  padding-bottom: 15px;
+}
+
+.card-content-recipe {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.card-content-ingredient {
+  width: 50%;
+  margin-bottom: 21px;
+}
+
+.search-tag {
   flex-direction: column;
 
   form {
@@ -70,7 +178,7 @@ body {
 }
 
 .tags {
-  display: s;
+  display: flex;
   flex-direction: column;
 }
 
@@ -84,4 +192,58 @@ body {
 
 .recipes-nb {
   padding-top: 17px;
+}
+
+.container-main {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 37px;
+}
+
+.card {
+  position: relative;
+  border-radius: 21px;
+  background-color: white;
+  margin-bottom: 66px;
+}
+
+.card-header-img {
+  width: 100%;
+  height: 253px;
+  border-radius: 21px 21px 0 0;
+  object-fit: cover;
+}
+
+.duration {
+  position: absolute;
+  top: 21px;
+  right: 22px;
+  border-radius: 14px;
+  padding: 5px 15px;
+  background-color: $secondary;
+}
+
+.card-title {
+  margin-top: 32px;
+}
+
+.card-content {
+  padding: 0 25px;
+}
+
+.card-content-title {
+  padding-top: 29px;
+  padding-bottom: 15px;
+}
+
+.card-content-recipe {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.card-content-ingredient {
+  width: 50%;
+  margin-bottom: 21px;
 }
