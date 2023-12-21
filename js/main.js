@@ -1,11 +1,12 @@
 import { recipes } from "../data/recipes.js";
 
+const container = document.querySelector(".container-main");
 const nbRecipes = document.querySelector(".recipes-nb");
 let totalRecipes = 0;
 
+const searchInput = document.querySelector(".search-bar");
 const searchTags = document.querySelectorAll(".search-tags-title");
 
-const searchInput = document.querySelector(".search-bar");
 let result = [];
 
 const createCard = (recipe) => {
@@ -85,18 +86,24 @@ searchTags.forEach((el) => {
 });
 
 const displayCard = (recipes) => {
-  const main = document.querySelector(".container-main");
-  main.innerHTML = "";
+  container.innerHTML = "";
+  if (recipes.length === 0) {
+    // Afficher un message si aucun résultat n'est trouvé
+    container.innerHTML = `<p class="no-result">Aucun résultat trouvé</p>`;
+    nbRecipes.innerHTML = "Aucun résultat";
+  } else {
+    recipes.forEach((recipe) => {
+      const recipeCard = createCard(recipe);
 
-  recipes.forEach((recipe) => {
-    const recipeCard = createCard(recipe);
-
-    main.innerHTML += recipeCard;
-  });
-  totalRecipes = recipes.length;
-  const textTotalRecipes =
-    totalRecipes > 1 ? `${totalRecipes} recettes` : `0${totalRecipes} recette`;
-  nbRecipes.innerHTML = textTotalRecipes;
+      container.innerHTML += recipeCard;
+    });
+    totalRecipes = recipes.length;
+    const textTotalRecipes =
+      totalRecipes > 1
+        ? `${totalRecipes} recettes`
+        : `0${totalRecipes} recette`;
+    nbRecipes.innerHTML = textTotalRecipes;
+  }
 };
 
 const displayTags = (recipes) => {

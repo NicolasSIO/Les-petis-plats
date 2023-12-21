@@ -205,6 +205,11 @@ body {
   font-size: 14px;
 }
 
+.no-result {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 header {
   background-image: url("../../img/lampos-aritonang-24gR_9lCdes-unsplash 1.png");
   height: 667px;
@@ -347,6 +352,11 @@ body {
 .tags {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.tags::-webkit-scrollbar {
+  display: none;
 }
 
 .tag {
@@ -367,11 +377,10 @@ body {
 }
 
 .container-main {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  -moz-column-gap: 37px;
-       column-gap: 37px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .card {
@@ -379,6 +388,11 @@ body {
   border-radius: 21px;
   background-color: white;
   margin-bottom: 66px;
+  width: calc(33.33% - 10px);
+}
+
+.container-main .card:nth-child(1):only-child {
+  width: 100%;
 }
 
 .card-header-img {
