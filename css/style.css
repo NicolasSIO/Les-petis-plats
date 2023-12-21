@@ -311,12 +311,16 @@ body {
   display: flex;
 }
 
-.search-tag {
+.search-ingredient,
+.search-appliance,
+.search-ustensil {
   flex-direction: column;
   height: 315px;
   overflow: hidden;
 }
-.search-tag form {
+.search-ingredient form,
+.search-appliance form,
+.search-ustensil form {
   position: relative;
   margin: 0 auto;
 }

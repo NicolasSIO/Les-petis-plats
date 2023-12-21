@@ -52,7 +52,10 @@ body {
   display: flex;
 }
 
-.search-tag {
+.search-ingredient,
+.search-appliance,
+.search-ustensil
+ {
   flex-direction: column;
   height: 315px;
   overflow: hidden;
