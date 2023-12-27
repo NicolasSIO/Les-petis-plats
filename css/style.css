@@ -200,6 +200,20 @@ body {
   line-height: normal;
 }
 
+.tag {
+  text-align: left;
+  font-size: 14px;
+}
+
+.tag {
+  font-size: 14px;
+}
+
+.no-result {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 header {
   background-image: url("../../img/lampos-aritonang-24gR_9lCdes-unsplash 1.png");
   height: 667px;
@@ -266,14 +280,11 @@ body {
 .container-header {
   display: flex;
   justify-content: space-between;
-  padding: 21px 0 55px 0;
+  padding-top: 21px;
 }
 
 .container-header-tags {
   display: flex;
-}
-.container-header-tags div {
-  align-items: center;
 }
 
 .search-tags {
@@ -282,17 +293,23 @@ body {
   margin-right: 66px;
   border-radius: 11px;
   background-color: white;
+  width: 195px;
   cursor: pointer;
 }
 
 .search-tags-title {
-  padding: 16px 17px;
+  padding: 16px;
+  position: relative;
   display: flex;
 }
 .search-tags-title img {
   width: 13px;
   height: 6px;
   padding-left: 63px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .display-none {
@@ -303,19 +320,26 @@ body {
   display: flex;
 }
 
-.search-tag {
+.search-ingredient,
+.search-appliance,
+.search-ustensil {
   flex-direction: column;
-  height: 200px;
+  height: 315px;
   overflow: hidden;
 }
-.search-tag form {
+.search-ingredient form,
+.search-appliance form,
+.search-ustensil form {
   position: relative;
+  margin: 0 auto;
 }
 
-.search-tags-bar {
-  width: 163px;
+.search-tags-ingredient,
+.search-tags-appliance,
+.search-tags-ustensil {
   height: 36px;
   border: 1px solid #c6c6c6;
+  width: 163px;
 }
 
 .search-tags-btn {
@@ -334,111 +358,22 @@ body {
 .tags {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.tags::-webkit-scrollbar {
+  display: none;
 }
 
 .tag {
-  padding: 13px;
+  text-align: left;
+  padding: 13px 16px;
+  list-style: none;
 }
-
-.tag:first-child {
-  margin-top: 11px;
-}
-
-.recipes-nb {
-  padding-top: 17px;
-}
-
-.container-main {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  -moz-column-gap: 37px;
-       column-gap: 37px;
-}
-
-.card {
-  position: relative;
-  border-radius: 21px;
-  background-color: white;
-  margin-bottom: 66px;
-}
-
-.card-header-img {
-  width: 100%;
-  height: 253px;
-  border-radius: 21px 21px 0 0;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.duration {
-  position: absolute;
-  top: 21px;
-  right: 22px;
-  border-radius: 14px;
-  padding: 5px 15px;
+.tag:hover {
   background-color: #ffd15b;
 }
 
-.card-title {
-  margin-top: 32px;
-}
-
-.card-content {
-  padding: 0 25px;
-}
-
-.card-content-title {
-  padding-top: 29px;
-  padding-bottom: 15px;
-}
-
-.card-content-recipe {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-
-.card-content-ingredient {
-  width: 50%;
-  margin-bottom: 21px;
-}
-
-.search-tag {
-  flex-direction: column;
-}
-.search-tag form {
-  position: relative;
-}
-
-.search-tags-bar {
-  width: 163px;
-  height: 36px;
-  border: 1px solid #c6c6c6;
-}
-
-.search-tags-btn {
-  position: absolute;
-  right: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background-repeat: no-repeat;
-  background-color: white;
-  height: 14px;
-  width: 14px;
-  color: #7a7a7a;
-}
-
-.tags {
-  display: flex;
-  flex-direction: column;
-}
-
-.tag {
-  padding: 13px;
-}
-
 .tag:first-child {
   margin-top: 11px;
 }
@@ -447,12 +382,37 @@ body {
   padding-top: 17px;
 }
 
+.tags-selected-group {
+  margin-top: 21px;
+  margin-bottom: 43px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-selected {
+  background-color: #ffd15b;
+  padding: 17px 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.tag-cross {
+  width: 10px;
+  height: 10px;
+}
+
 .container-main {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  -moz-column-gap: 37px;
-       column-gap: 37px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .card {
@@ -460,6 +420,11 @@ body {
   border-radius: 21px;
   background-color: white;
   margin-bottom: 66px;
+  width: calc(33.33% - 10px);
+}
+
+.container-main .card:nth-child(1):only-child {
+  width: 100%;
 }
 
 .card-header-img {

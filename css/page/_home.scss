@@ -11,15 +11,11 @@ body {
 .container-header {
   display: flex;
   justify-content: space-between;
-  padding: 21px 0 55px 0;
+  padding-top: 21px;
 }
 
 .container-header-tags {
   display: flex;
-
-  div {
-    align-items: center;
-  }
 }
 
 .search-tags {
@@ -28,17 +24,23 @@ body {
   margin-right: 66px;
   border-radius: 11px;
   background-color: white;
+  width: 195px;
   cursor: pointer;
 }
 
 .search-tags-title {
-  padding: 16px 17px;
+  padding: 16px;
+  position: relative;
   display: flex;
 
   img {
     width: 13px;
     height: 6px;
     padding-left: 63px;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
@@ -50,20 +52,25 @@ body {
   display: flex;
 }
 
-.search-tag {
+.search-ingredient,
+.search-appliance,
+.search-ustensil {
   flex-direction: column;
-  height: 200px;
+  height: 315px;
   overflow: hidden;
 
   form {
     position: relative;
+    margin: 0 auto;
   }
 }
 
-.search-tags-bar {
-  width: 163px;
+.search-tags-ingredient,
+.search-tags-appliance,
+.search-tags-ustensil {
   height: 36px;
   border: 1px solid #c6c6c6;
+  width: 163px;
 }
 
 .search-tags-btn {
@@ -82,10 +89,22 @@ body {
 .tags {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .tag {
-  padding: 13px;
+  text-align: left;
+  padding: 13px 16px;
+  list-style: none;
+
+  &:hover {
+    background-color: $secondary;
+  }
 }
 
 .tag:first-child {
@@ -96,109 +115,36 @@ body {
   padding-top: 17px;
 }
 
-.container-main {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 37px;
-}
-
-.card {
-  position: relative;
-  border-radius: 21px;
-  background-color: white;
-  margin-bottom: 66px;
-}
-
-.card-header-img {
-  width: 100%;
-  height: 253px;
-  border-radius: 21px 21px 0 0;
-  object-fit: cover;
-}
-
-.duration {
-  position: absolute;
-  top: 21px;
-  right: 22px;
-  border-radius: 14px;
-  padding: 5px 15px;
-  background-color: $secondary;
-}
-
-.card-title {
-  margin-top: 32px;
-}
-
-.card-content {
-  padding: 0 25px;
-}
-
-.card-content-title {
-  padding-top: 29px;
-  padding-bottom: 15px;
-}
-
-.card-content-recipe {
+.tags-selected-group {
+  margin-top: 21px;
+  margin-bottom: 43px;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 40px;
 }
 
-.card-content-ingredient {
-  width: 50%;
-  margin-bottom: 21px;
-}
-
-.search-tag {
-  flex-direction: column;
-
-  form {
-    position: relative;
-  }
-}
-
-.search-tags-bar {
-  width: 163px;
-  height: 36px;
-  border: 1px solid #c6c6c6;
-}
-
-.search-tags-btn {
-  position: absolute;
-  right: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background-repeat: no-repeat;
-  background-color: white;
-  height: 14px;
-  width: 14px;
-  color: $primary;
-}
-
-.tags {
+.tag-selected {
+  background-color: $secondary;
+  padding: 17px 18px;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: fit-content;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
-.tag {
-  padding: 13px;
-}
-
-.tag:first-child {
-  margin-top: 11px;
-}
-
-.recipes-nb {
-  padding-top: 17px;
+.tag-cross {
+  width: 10px;
+  height: 10px;
 }
 
 .container-main {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 37px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .card {
@@ -206,6 +152,11 @@ body {
   border-radius: 21px;
   background-color: white;
   margin-bottom: 66px;
+  width: calc(33.33% - 10px);
+}
+
+.container-main .card:nth-child(1):only-child {
+  width: 100%;
 }
 
 .card-header-img {
