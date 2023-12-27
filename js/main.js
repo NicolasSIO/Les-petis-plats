@@ -179,7 +179,7 @@ const displayTagSelected = () => {
   const handleTagClick = (event) => {
     const clickedTag = event.target.textContent.trim();
     const tagIndex = selectedTags.indexOf(clickedTag);
-    
+
     if (tagIndex === -1) {
       // Si le tag n'est pas déjà sélectionné, l'ajouter au tableau
       selectedTags.push(clickedTag);
@@ -190,7 +190,7 @@ const displayTagSelected = () => {
 
     tagSelectedGroup.insertAdjacentHTML(
       "beforeend",
-      createTagSelected(selectedTags)
+      createTagSelected(clickedTag)
     );
 
     const filteredRecipes = recipes.filter((recipe) => {
