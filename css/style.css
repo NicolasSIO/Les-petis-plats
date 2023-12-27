@@ -205,6 +205,10 @@ body {
   font-size: 14px;
 }
 
+.tag {
+  font-size: 14px;
+}
+
 .no-result {
   font-size: 18px;
   font-weight: 700;
@@ -276,7 +280,7 @@ body {
 .container-header {
   display: flex;
   justify-content: space-between;
-  padding: 21px 0 55px 0;
+  padding-top: 21px;
 }
 
 .container-header-tags {
@@ -330,7 +334,9 @@ body {
   margin: 0 auto;
 }
 
-.search-tags-bar {
+.search-tags-ingredient,
+.search-tags-appliance,
+.search-tags-ustensil {
   height: 36px;
   border: 1px solid #c6c6c6;
   width: 163px;
@@ -374,6 +380,32 @@ body {
 
 .recipes-nb {
   padding-top: 17px;
+}
+
+.tags-selected-group {
+  margin-top: 21px;
+  margin-bottom: 43px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-selected {
+  background-color: #ffd15b;
+  padding: 17px 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.tag-cross {
+  width: 10px;
+  height: 10px;
 }
 
 .container-main {

@@ -6,7 +6,11 @@ let totalRecipes = 0;
 
 const searchInput = document.querySelector(".search-bar");
 const searchTags = document.querySelectorAll(".search-tags-title");
+const tagSelectedGroup = document.querySelector(".tags-selected-group");
 
+let ingredients = [];
+let appliances = [];
+let ustensils = [];
 let result = [];
 
 const createCard = (recipe) => {
@@ -73,6 +77,14 @@ const createUstensils = (ustensil) => {
   return ustensils;
 };
 
+const createTagSelected = (tag) => {
+  const tagSelected = `
+    <li class="tag-selected">${tag} <img class="tag-cross" src="img/Cross.png" alt="Croix"></li>
+  `;
+
+  return tagSelected;
+};
+
 searchTags.forEach((el) => {
   el.addEventListener("click", () => {
     if (el.parentNode.childNodes[3].classList.contains("display-none")) {
@@ -92,11 +104,14 @@ const displayCard = (recipes) => {
     container.innerHTML = `<p class="no-result">Aucun résultat trouvé</p>`;
     nbRecipes.innerHTML = "Aucun résultat";
   } else {
-    recipes.forEach((recipe) => {
-      const recipeCard = createCard(recipe);
-
-      container.innerHTML += recipeCard;
-    });
+    container.insertAdjacentHTML(
+      "beforeend",
+      recipes
+        .map((recipe) => {
+          return createCard(recipe);
+        })
+        .join(" ")
+    );
     totalRecipes = recipes.length;
     const textTotalRecipes =
       totalRecipes > 1
@@ -107,12 +122,12 @@ const displayCard = (recipes) => {
 };
 
 const displayTags = (recipes) => {
-  let ingredients = [];
-  let appliances = [];
-  let ustensils = [];
   let ingredientContainer = document.querySelector(".ingredients");
   let applianceContainer = document.querySelector(".appliances");
   let ustensilContainer = document.querySelector(".ustensils");
+  ingredientContainer.innerHTML = "";
+  applianceContainer.innerHTML = "";
+  ustensilContainer.innerHTML = "";
 
   recipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
@@ -129,26 +144,152 @@ const displayTags = (recipes) => {
       }
     });
   });
-  ingredients.forEach((ingredient) => {
-    const ingredientTag = createIngredient(ingredient);
-    ingredientContainer.innerHTML += ingredientTag;
-  });
-  appliances.forEach((appliance) => {
-    const applainceTag = createAppliance(appliance);
-    applianceContainer.innerHTML += applainceTag;
-  });
-  ustensils.forEach((ustensil) => {
-    const ustensilTag = createUstensils(ustensil);
-    ustensilContainer.innerHTML += ustensilTag;
+  ingredientContainer.insertAdjacentHTML(
+    "beforeend",
+    ingredients
+      .map((ingredient) => {
+        return createIngredient(ingredient);
+      })
+      .join(" ")
+  );
+  applianceContainer.insertAdjacentHTML(
+    "beforeend",
+    appliances
+      .map((appliance) => {
+        return createAppliance(appliance);
+      })
+      .join(" ")
+  );
+  ustensilContainer.insertAdjacentHTML(
+    "beforeend",
+    ustensils
+      .map((ustensil) => {
+        return createUstensils(ustensil);
+      })
+      .join(" ")
+  );
+};
+
+const displayTagSelected = () => {
+  const tags = document.querySelectorAll(".tag");
+  let selectedTags = [];
+
+  tagSelectedGroup.innerHTML = "";
+
+  const handleTagClick = (event) => {
+    const clickedTag = event.target.textContent.trim();
+    const tagIndex = selectedTags.indexOf(clickedTag);
+    
+    if (tagIndex === -1) {
+      // Si le tag n'est pas déjà sélectionné, l'ajouter au tableau
+      selectedTags.push(clickedTag);
+    } else {
+      // Si le tag est déjà sélectionné, le retirer du tableau
+      selectedTags.splice(tagIndex, 1);
+    }
+
+    tagSelectedGroup.insertAdjacentHTML(
+      "beforeend",
+      createTagSelected(selectedTags)
+    );
+
+    const filteredRecipes = recipes.filter((recipe) => {
+      return selectedTags.every((selectedTag) => {
+        const lowerCaseSelectedTag = selectedTag.toLowerCase();
+        const recipeIngredients = recipe.ingredients.map((ingredient) =>
+          ingredient.ingredient.toLowerCase()
+        );
+        const recipeUstensils = recipe.ustensils.map((ustensil) =>
+          ustensil.toLowerCase()
+        );
+
+        return (
+          recipeIngredients.includes(lowerCaseSelectedTag) ||
+          recipeUstensils.includes(lowerCaseSelectedTag) ||
+          recipe.appliance.toLowerCase() === lowerCaseSelectedTag
+        );
+      });
+    });
+
+    container.innerHTML = "";
+
+    totalRecipes = filteredRecipes.length;
+    const textTotalRecipes =
+      totalRecipes > 1
+        ? `${totalRecipes} recettes`
+        : `0${totalRecipes} recette`;
+    nbRecipes.innerHTML = textTotalRecipes;
+
+    // Ajouter les nouvelles recettes à la suite du contenu existant
+    container.insertAdjacentHTML(
+      "beforeend",
+      filteredRecipes.map((recipe) => createCard(recipe)).join("")
+    );
+  };
+
+  tags.forEach((tag) => {
+    tag.addEventListener("click", handleTagClick);
   });
 };
+
+// Supprime le tag en cliquant sur la croix
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("tag-cross")) {
+    const tagToRemove = event.target.closest(".tag-selected");
+    if (tagToRemove) {
+      tagToRemove.remove();
+
+      // Mettre à jour les tags restants
+      const remainingTags = Array.from(
+        document.querySelectorAll(".tag-selected")
+      ).map((tag) => tag.textContent.trim());
+
+      // Filtrer les recettes en fonction des tags restants ou afficher toutes les recettes
+      const filteredRecipes =
+        remainingTags.length > 0
+          ? recipes.filter((recipe) => {
+              return remainingTags.every((selectedTag) => {
+                const lowerCaseSelectedTag = selectedTag.toLowerCase();
+                const recipeIngredients = recipe.ingredients.map((ingredient) =>
+                  ingredient.ingredient.toLowerCase()
+                );
+                const recipeUstensils = recipe.ustensils.map((ustensil) =>
+                  ustensil.toLowerCase()
+                );
+
+                return (
+                  recipeIngredients.includes(lowerCaseSelectedTag) ||
+                  recipeUstensils.includes(lowerCaseSelectedTag) ||
+                  recipe.appliance.toLowerCase() === lowerCaseSelectedTag
+                );
+              });
+            })
+          : recipes;
+
+      container.innerHTML = "";
+
+      const totalRecipes = filteredRecipes.length;
+      const textTotalRecipes =
+        totalRecipes > 1
+          ? `${totalRecipes} recettes`
+          : `0${totalRecipes} recette`;
+      nbRecipes.innerHTML = textTotalRecipes;
+
+      // Afficher les nouvelles recettes
+      container.insertAdjacentHTML(
+        "beforeend",
+        filteredRecipes.map((recipe) => createCard(recipe)).join("")
+      );
+    }
+  }
+});
 
 searchInput.addEventListener("input", () => {
   search();
 });
 
 const search = () => {
-  const searchValue = searchInput.value.toLowerCase();
+  const searchValue = searchInput.value.toLowerCase().trim();
 
   if (searchValue.length > 2) {
     result = recipes.filter((recipe) => {
@@ -166,12 +307,14 @@ const search = () => {
       result.length > 1
         ? `${result.length} recettes`
         : `0${result.length} recette`;
+    displayTags(result);
   } else {
     displayCard(recipes);
     nbRecipes.innerHTML =
       totalRecipes > 1
         ? `${totalRecipes} recettes`
         : `0${totalRecipes} recette`;
+    displayTags(recipes);
   }
 };
 
@@ -179,6 +322,7 @@ const main = () => {
   try {
     displayCard(recipes);
     displayTags(recipes);
+    displayTagSelected();
   } catch (error) {
     console.error("Une erreur est survenue :", error);
   }
