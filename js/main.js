@@ -5,13 +5,23 @@ const nbRecipes = document.querySelector(".recipes-nb");
 let totalRecipes = 0;
 
 const searchInput = document.querySelector(".search-bar");
+const searchIngredient = document.querySelector(".search-tags-ingredient");
+const searchAppliance = document.querySelector(".search-tags-appliance");
+const searchUstensil = document.querySelector(".search-tags-ustensil");
 const searchTags = document.querySelectorAll(".search-tags-title");
 const tagSelectedGroup = document.querySelector(".tags-selected-group");
+
+let ingredientContainer = document.querySelector(".ingredients");
+let applianceContainer = document.querySelector(".appliances");
+let ustensilContainer = document.querySelector(".ustensils");
 
 let ingredients = [];
 let appliances = [];
 let ustensils = [];
 let result = [];
+let resultIngredients = [];
+let resultAppliances = [];
+let resultUstensils = [];
 
 const createCard = (recipe) => {
   const ingredientsContent = recipe.ingredients
@@ -56,22 +66,22 @@ const createCard = (recipe) => {
 
 const createIngredient = (ingredient) => {
   const ingredients = `
-      <li class="tag">${ingredient}</li>
+      <li class="tag ingredient">${ingredient}</li>
     `;
 
   return ingredients;
 };
 
-const createAppliance = (applaince) => {
-  const applainces = `
-      <li class="tag">${applaince}</li>
+const createAppliance = (appliance) => {
+  const appliances = `
+      <li class="tag appliance">${appliance}</li>
     `;
 
-  return applainces;
+  return appliances;
 };
 const createUstensils = (ustensil) => {
   const ustensils = `
-      <li class="tag">${ustensil}</li>
+      <li class="tag ustensil">${ustensil}</li>
     `;
 
   return ustensils;
@@ -122,9 +132,6 @@ const displayCard = (recipes) => {
 };
 
 const displayTags = (recipes) => {
-  let ingredientContainer = document.querySelector(".ingredients");
-  let applianceContainer = document.querySelector(".appliances");
-  let ustensilContainer = document.querySelector(".ustensils");
   ingredientContainer.innerHTML = "";
   applianceContainer.innerHTML = "";
   ustensilContainer.innerHTML = "";
@@ -308,6 +315,7 @@ const search = () => {
         ? `${result.length} recettes`
         : `0${result.length} recette`;
     displayTags(result);
+    displayTagSelected();
   } else {
     displayCard(recipes);
     nbRecipes.innerHTML =
@@ -316,6 +324,72 @@ const search = () => {
         : `0${totalRecipes} recette`;
     displayTags(recipes);
   }
+};
+
+searchIngredient.addEventListener("input", () => {
+  searchTagIngredient();
+});
+
+const searchTagIngredient = () => {
+  ingredientContainer.innerHTML = "";
+  const searchValue = searchIngredient.value.toLowerCase().trim();
+  resultIngredients = ingredients.filter((ingredient) => {
+    const ingredientMatch = ingredient.toLowerCase().includes(searchValue);
+    return ingredientMatch;
+  });
+  ingredientContainer.insertAdjacentHTML(
+    "beforeend",
+    resultIngredients
+      .map((ingredient) => {
+        return createIngredient(ingredient);
+      })
+      .join(" ")
+  );
+  displayTagSelected();
+};
+
+searchAppliance.addEventListener("input", () => {
+  searchTagAppliance();
+});
+
+const searchTagAppliance = () => {
+  applianceContainer.innerHTML = "";
+  const searchValue = searchAppliance.value.toLowerCase().trim();
+  resultAppliances = appliances.filter((appliance) => {
+    const applianceMatch = appliance.toLowerCase().includes(searchValue);
+    return applianceMatch;
+  });
+  applianceContainer.insertAdjacentHTML(
+    "beforeend",
+    resultAppliances
+      .map((appliance) => {
+        return createAppliance(appliance);
+      })
+      .join(" ")
+  );
+  displayTagSelected();
+};
+
+searchUstensil.addEventListener("input", () => {
+  searchTagUstensil();
+});
+
+const searchTagUstensil = () => {
+  ustensilContainer.innerHTML = "";
+  const searchValue = searchUstensil.value.toLowerCase().trim();
+  resultUstensils = ustensils.filter((ustensil) => {
+    const ustensilMatch = ustensil.toLowerCase().includes(searchValue);
+    return ustensilMatch;
+  });
+  ustensilContainer.insertAdjacentHTML(
+    "beforeend",
+    resultUstensils
+      .map((ustensil) => {
+        return createUstensils(ustensil);
+      })
+      .join(" ")
+  );
+  displayTagSelected();
 };
 
 const main = () => {
