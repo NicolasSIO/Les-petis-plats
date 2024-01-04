@@ -192,6 +192,17 @@ body {
   padding-bottom: 15px;
 }
 
+.card-content-text {
+  height: 76px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  text-overflow: ellipsis;
+
+  &:hover {
+    height: max-content;
+  }
+}
+
 .card-content-recipe {
   display: flex;
   flex-wrap: wrap;
