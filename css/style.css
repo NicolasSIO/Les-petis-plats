@@ -254,6 +254,15 @@ header {
   color: #7a7a7a;
 }
 
+.erase-search-value {
+  position: absolute;
+  cursor: pointer;
+  display: none;
+  right: 85px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .search-btn {
   position: absolute;
   right: 10px;
@@ -312,14 +321,6 @@ body {
   transform: translateY(-50%);
 }
 
-.display-none {
-  display: none;
-}
-
-.display-flex {
-  display: flex;
-}
-
 .search-ingredient,
 .search-appliance,
 .search-ustensil {
@@ -332,6 +333,17 @@ body {
 .search-ustensil form {
   position: relative;
   margin: 0 auto;
+}
+
+.erase-ingredient-value,
+.erase-appliance-value,
+.erase-ustensil-value {
+  position: absolute;
+  display: none;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
 }
 
 .search-tags-ingredient,
@@ -467,4 +479,12 @@ body {
 .card-content-ingredient {
   width: 50%;
   margin-bottom: 21px;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
 }/*# sourceMappingURL=style.css.map */

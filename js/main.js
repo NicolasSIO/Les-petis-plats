@@ -5,9 +5,13 @@ const nbRecipes = document.querySelector(".recipes-nb");
 let totalRecipes = 0;
 
 const searchInput = document.querySelector(".search-bar");
+const eraseSearchValue = document.querySelector(".erase-search-value");
 const searchIngredient = document.querySelector(".search-tags-ingredient");
+const eraseIngredientValue = document.querySelector(".erase-ingredient-value");
 const searchAppliance = document.querySelector(".search-tags-appliance");
+const eraseApplianceValue = document.querySelector(".erase-appliance-value");
 const searchUstensil = document.querySelector(".search-tags-ustensil");
+const eraseUstensilValue = document.querySelector(".erase-ustensil-value");
 const searchTags = document.querySelectorAll(".search-tags-title");
 const tagSelectedGroup = document.querySelector(".tags-selected-group");
 
@@ -299,6 +303,7 @@ const search = () => {
   const searchValue = searchInput.value.toLowerCase().trim();
 
   if (searchValue.length > 2) {
+    eraseSearchValue.classList.add("display-flex");
     result = recipes.filter((recipe) => {
       const titleMatch = recipe.name.toLowerCase().includes(searchValue);
       const ingredientsMatch = recipe.ingredients.some((ingredient) =>
@@ -317,6 +322,7 @@ const search = () => {
     displayTags(result);
     displayTagSelected();
   } else {
+    eraseSearchValue.classList.remove("display-flex");
     displayCard(recipes);
     nbRecipes.innerHTML =
       totalRecipes > 1
@@ -333,6 +339,11 @@ searchIngredient.addEventListener("input", () => {
 const searchTagIngredient = () => {
   ingredientContainer.innerHTML = "";
   const searchValue = searchIngredient.value.toLowerCase().trim();
+  if (searchValue.length >= 1) {
+    eraseIngredientValue.classList.add("display-flex");
+  } else {
+    eraseIngredientValue.classList.remove("display-flex");
+  }
   resultIngredients = ingredients.filter((ingredient) => {
     const ingredientMatch = ingredient.toLowerCase().includes(searchValue);
     return ingredientMatch;
@@ -355,6 +366,11 @@ searchAppliance.addEventListener("input", () => {
 const searchTagAppliance = () => {
   applianceContainer.innerHTML = "";
   const searchValue = searchAppliance.value.toLowerCase().trim();
+  if (searchValue.length >= 1) {
+    eraseApplianceValue.classList.add("display-flex");
+  } else {
+    eraseApplianceValue.classList.remove("display-flex");
+  }
   resultAppliances = appliances.filter((appliance) => {
     const applianceMatch = appliance.toLowerCase().includes(searchValue);
     return applianceMatch;
@@ -377,6 +393,11 @@ searchUstensil.addEventListener("input", () => {
 const searchTagUstensil = () => {
   ustensilContainer.innerHTML = "";
   const searchValue = searchUstensil.value.toLowerCase().trim();
+  if (searchValue.length >= 1) {
+    eraseUstensilValue.classList.add("display-flex");
+  } else {
+    eraseUstensilValue.classList.remove("display-flex");
+  }
   resultUstensils = ustensils.filter((ustensil) => {
     const ustensilMatch = ustensil.toLowerCase().includes(searchValue);
     return ustensilMatch;
@@ -391,6 +412,25 @@ const searchTagUstensil = () => {
   );
   displayTagSelected();
 };
+
+eraseSearchValue.addEventListener("click", () => {
+  searchInput.value = "";
+});
+eraseIngredientValue.addEventListener("click", () => {
+  searchIngredient.value = "";
+  displayTags(recipes);
+  eraseIngredientValue.classList.remove("display-flex");
+});
+eraseApplianceValue.addEventListener("click", () => {
+  searchAppliance.value = "";
+  displayTags(recipes);
+  eraseApplianceValue.classList.remove("display-flex");
+});
+eraseUstensilValue.addEventListener("click", () => {
+  searchUstensil.value = "";
+  displayTags(recipes);
+  eraseUstensilValue.classList.remove("display-flex");
+});
 
 const main = () => {
   try {
