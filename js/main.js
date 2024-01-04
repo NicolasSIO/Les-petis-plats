@@ -70,7 +70,7 @@ const createCard = (recipe) => {
 
 const createIngredient = (ingredient) => {
   const ingredients = `
-      <li class="tag ingredient">${ingredient}</li>
+      <li class="tag ingredient">${ingredient} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
   return ingredients;
@@ -78,14 +78,14 @@ const createIngredient = (ingredient) => {
 
 const createAppliance = (appliance) => {
   const appliances = `
-      <li class="tag appliance">${appliance}</li>
+      <li class="tag applliance">${appliance} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
   return appliances;
 };
 const createUstensils = (ustensil) => {
   const ustensils = `
-      <li class="tag ustensil">${ustensil}</li>
+      <li class="tag ustensil">${ustensil} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
   return ustensils;
@@ -189,7 +189,17 @@ const displayTagSelected = () => {
 
   const handleTagClick = (event) => {
     const clickedTag = event.target.textContent.trim();
+    const tagElement = event.target;
+    const nextElement = tagElement.childNodes[1];
     const tagIndex = selectedTags.indexOf(clickedTag);
+
+    tagElement.classList.add("selected");
+    nextElement.classList.add("display-flex");
+
+    nextElement.addEventListener("click", () => {
+      nextElement.classList.remove("display-flex");
+      tagElement.classList.remove("selected");
+    });
 
     if (tagIndex === -1) {
       // Si le tag n'est pas déjà sélectionné, l'ajouter au tableau
