@@ -219,7 +219,6 @@ const displayTagSelected = () => {
       // Si le tag est déjà sélectionné, le retirer du tableau
       selectedTags.splice(tagIndex, 1);
     }
-    console.log(selectedTags);
 
     tagSelectedGroup.insertAdjacentHTML(
       "beforeend",
