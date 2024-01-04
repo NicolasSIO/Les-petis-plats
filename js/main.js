@@ -5,15 +5,16 @@ const nbRecipes = document.querySelector(".recipes-nb");
 let totalRecipes = 0;
 
 const searchInput = document.querySelector(".search-bar");
-const eraseSearchValue = document.querySelector(".erase-search-value");
 const searchIngredient = document.querySelector(".search-tags-ingredient");
-const eraseIngredientValue = document.querySelector(".erase-ingredient-value");
 const searchAppliance = document.querySelector(".search-tags-appliance");
-const eraseApplianceValue = document.querySelector(".erase-appliance-value");
 const searchUstensil = document.querySelector(".search-tags-ustensil");
-const eraseUstensilValue = document.querySelector(".erase-ustensil-value");
 const searchTags = document.querySelectorAll(".search-tags-title");
 const tagSelectedGroup = document.querySelector(".tags-selected-group");
+
+const eraseSearchValue = document.querySelector(".erase-search-value");
+const eraseIngredientValue = document.querySelector(".erase-ingredient-value");
+const eraseApplianceValue = document.querySelector(".erase-appliance-value");
+const eraseUstensilValue = document.querySelector(".erase-ustensil-value");
 
 let ingredientContainer = document.querySelector(".ingredients");
 let applianceContainer = document.querySelector(".appliances");
@@ -35,7 +36,7 @@ const createCard = (recipe) => {
           <div class="card-content-ingredient">
             <p class="card-content-name">${ingredient.ingredient}</p>
             <p class="card-content-quantity">${ingredient.quantity}${
-            ingredient.unit ? ingredient.unit : ""
+            ingredient.unit ? ingredient.unit : " "
           }</p>
           </div>
         `
@@ -99,6 +100,7 @@ const createTagSelected = (tag) => {
   return tagSelected;
 };
 
+// affiche les dropdowns des filtres
 searchTags.forEach((el) => {
   el.addEventListener("click", () => {
     if (el.parentNode.childNodes[3].classList.contains("display-none")) {
@@ -118,6 +120,7 @@ const displayCard = (recipes) => {
     container.innerHTML = `<p class="no-result">Aucun résultat trouvé</p>`;
     nbRecipes.innerHTML = "Aucun résultat";
   } else {
+    // Ajoute les card dans l'élément
     container.insertAdjacentHTML(
       "beforeend",
       recipes
@@ -155,6 +158,7 @@ const displayTags = (recipes) => {
       }
     });
   });
+  // Affiche les ingrédients dans le dropdown associé
   ingredientContainer.insertAdjacentHTML(
     "beforeend",
     ingredients
@@ -163,6 +167,8 @@ const displayTags = (recipes) => {
       })
       .join(" ")
   );
+
+  // Affiche les appareils dans le dropdown associé
   applianceContainer.insertAdjacentHTML(
     "beforeend",
     appliances
@@ -171,6 +177,8 @@ const displayTags = (recipes) => {
       })
       .join(" ")
   );
+
+  // Affiche les ustensiles dans le dropdown associé
   ustensilContainer.insertAdjacentHTML(
     "beforeend",
     ustensils
@@ -193,13 +201,16 @@ const displayTagSelected = () => {
     const nextElement = tagElement.childNodes[1];
     const tagIndex = selectedTags.indexOf(clickedTag);
 
-    tagElement.classList.add("selected");
-    nextElement.classList.add("display-flex");
+    // On vérifie si le tag est déjà selectionné
+    if (!tagElement.classList.contains("selected")) {
+      tagElement.classList.add("selected");
+      nextElement.classList.add("display-flex");
 
-    nextElement.addEventListener("click", () => {
-      nextElement.classList.remove("display-flex");
-      tagElement.classList.remove("selected");
-    });
+      nextElement.addEventListener("click", () => {
+        tagElement.classList.remove("selected");
+        nextElement.classList.remove("display-flex");
+      });
+    }
 
     if (tagIndex === -1) {
       // Si le tag n'est pas déjà sélectionné, l'ajouter au tableau
@@ -208,12 +219,14 @@ const displayTagSelected = () => {
       // Si le tag est déjà sélectionné, le retirer du tableau
       selectedTags.splice(tagIndex, 1);
     }
+    console.log(selectedTags);
 
     tagSelectedGroup.insertAdjacentHTML(
       "beforeend",
       createTagSelected(clickedTag)
     );
 
+    // On récupère les recettes contennant les tags séléctionnés
     const filteredRecipes = recipes.filter((recipe) => {
       return selectedTags.every((selectedTag) => {
         const lowerCaseSelectedTag = selectedTag.toLowerCase();
@@ -314,6 +327,7 @@ const search = () => {
 
   if (searchValue.length > 2) {
     eraseSearchValue.classList.add("display-flex");
+    // On ajouté dans les results les recettes qui correspondent à la valeur de l'input
     result = recipes.filter((recipe) => {
       const titleMatch = recipe.name.toLowerCase().includes(searchValue);
       const ingredientsMatch = recipe.ingredients.some((ingredient) =>
