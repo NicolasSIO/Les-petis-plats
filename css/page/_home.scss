@@ -44,14 +44,6 @@ body {
   }
 }
 
-.display-none {
-  display: none;
-}
-
-.display-flex {
-  display: flex;
-}
-
 .search-ingredient,
 .search-appliance,
 .search-ustensil {
@@ -65,11 +57,23 @@ body {
   }
 }
 
+.erase-ingredient-value,
+.erase-appliance-value,
+.erase-ustensil-value {
+  position: absolute;
+  display: none;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+}
+
 .search-tags-ingredient,
 .search-tags-appliance,
 .search-tags-ustensil {
   height: 36px;
   border: 1px solid #c6c6c6;
+  color: $primary;
   width: 163px;
 }
 
@@ -101,6 +105,7 @@ body {
   text-align: left;
   padding: 13px 16px;
   list-style: none;
+  position: relative;
 
   &:hover {
     background-color: $secondary;
@@ -109,6 +114,19 @@ body {
 
 .tag:first-child {
   margin-top: 11px;
+}
+
+.selected {
+  background-color: $secondary;
+}
+
+.delete-tag {
+  position: absolute;
+  display: none;
+  cursor: pointer;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .recipes-nb {
@@ -188,6 +206,17 @@ body {
   padding-bottom: 15px;
 }
 
+.card-content-text {
+  height: 76px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  text-overflow: ellipsis;
+
+  &:hover {
+    height: max-content;
+  }
+}
+
 .card-content-recipe {
   display: flex;
   flex-wrap: wrap;
@@ -197,4 +226,12 @@ body {
 .card-content-ingredient {
   width: 50%;
   margin-bottom: 21px;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
 }

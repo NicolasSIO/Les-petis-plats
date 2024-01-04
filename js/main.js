@@ -5,8 +5,27 @@ const nbRecipes = document.querySelector(".recipes-nb");
 let totalRecipes = 0;
 
 const searchInput = document.querySelector(".search-bar");
+const searchIngredient = document.querySelector(".search-tags-ingredient");
+const searchAppliance = document.querySelector(".search-tags-appliance");
+const searchUstensil = document.querySelector(".search-tags-ustensil");
 const searchTags = document.querySelectorAll(".search-tags-title");
 const tagSelectedGroup = document.querySelector(".tags-selected-group");
+
+const eraseSearchValue = document.querySelector(".erase-search-value");
+const eraseIngredientValue = document.querySelector(".erase-ingredient-value");
+const eraseApplianceValue = document.querySelector(".erase-appliance-value");
+const eraseUstensilValue = document.querySelector(".erase-ustensil-value");
+
+let ingredientContainer = document.querySelector(".ingredients");
+let applianceContainer = document.querySelector(".appliances");
+let ustensilContainer = document.querySelector(".ustensils");
+
+let ingredients = [];
+let appliances = [];
+let ustensils = [];
+let resultIngredients = [];
+let resultAppliances = [];
+let resultUstensils = [];
 
 const createCard = (recipe) => {
   const ingredientsContent = recipe.ingredients
@@ -51,22 +70,22 @@ const createCard = (recipe) => {
 
 const createIngredient = (ingredient) => {
   const ingredients = `
-      <li class="tag">${ingredient}</li>
+      <li class="tag ingredient">${ingredient} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
   return ingredients;
 };
 
-const createAppliance = (applaince) => {
-  const applainces = `
-      <li class="tag">${applaince}</li>
+const createAppliance = (appliance) => {
+  const appliances = `
+      <li class="tag applliance">${appliance} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
-  return applainces;
+  return appliances;
 };
 const createUstensils = (ustensil) => {
   const ustensils = `
-      <li class="tag">${ustensil}</li>
+      <li class="tag ustensil">${ustensil} <img class="delete-tag" src="./img/CrossBlackBG.png" alt="Supprimer tag"></li>
     `;
 
   return ustensils;
@@ -120,16 +139,9 @@ const displayCard = (recipes) => {
 };
 
 const displayTags = (recipes) => {
-  let ingredientContainer = document.querySelector(".ingredients");
-  let applianceContainer = document.querySelector(".appliances");
-  let ustensilContainer = document.querySelector(".ustensils");
   ingredientContainer.innerHTML = "";
   applianceContainer.innerHTML = "";
   ustensilContainer.innerHTML = "";
-
-  let ingredients = [];
-  let appliances = [];
-  let ustensils = [];
 
   for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
@@ -150,6 +162,7 @@ const displayTags = (recipes) => {
     }
   }
 
+  // Affiche les ingrédients dans le dropdown associé
   ingredientContainer.insertAdjacentHTML(
     "beforeend",
     ingredients
@@ -158,6 +171,8 @@ const displayTags = (recipes) => {
       })
       .join(" ")
   );
+
+  // Affiche les appareils dans le dropdown associé
   applianceContainer.insertAdjacentHTML(
     "beforeend",
     appliances
@@ -166,6 +181,8 @@ const displayTags = (recipes) => {
       })
       .join(" ")
   );
+
+  // Affiche les ustensiles dans le dropdown associé
   ustensilContainer.insertAdjacentHTML(
     "beforeend",
     ustensils
@@ -184,7 +201,20 @@ const displayTagSelected = () => {
 
   const handleTagClick = (event) => {
     const clickedTag = event.target.textContent.trim();
+    const tagElement = event.target;
+    const nextElement = tagElement.childNodes[1];
     const tagIndex = selectedTags.indexOf(clickedTag);
+
+    // On vérifie si le tag est déjà selectionné
+    if (!tagElement.classList.contains("selected")) {
+      tagElement.classList.add("selected");
+      nextElement.classList.add("display-flex");
+
+      nextElement.addEventListener("click", () => {
+        tagElement.classList.remove("selected");
+        nextElement.classList.remove("display-flex");
+      });
+    }
 
     if (tagIndex === -1) {
       // Si le tag n'est pas déjà sélectionné, l'ajouter au tableau
@@ -233,10 +263,9 @@ const displayTagSelected = () => {
     nbRecipes.innerHTML = textTotalRecipes;
 
     // Ajouter les nouvelles recettes à la suite du contenu existant
-    container.insertAdjacentHTML(
-      "beforeend",
-      filteredRecipes.map((recipe) => createCard(recipe)).join("")
-    );
+    for (let i = 0; i < filteredRecipes.length; i++) {
+      container.insertAdjacentHTML("beforeend", createCard(filteredRecipes[i]));
+    }
   };
 
   for (let i = 0; i < tags.length; i++) {
@@ -306,7 +335,7 @@ searchInput.addEventListener("input", () => {
 
 const search = () => {
   const searchValue = searchInput.value.toLowerCase().trim();
-  let result = [];
+  const result = [];
 
   if (searchValue.length > 2) {
     for (let i = 0; i < recipes.length; i++) {
@@ -338,6 +367,134 @@ const search = () => {
     displayTags(recipes);
   }
 };
+
+searchIngredient.addEventListener("input", () => {
+  searchTagIngredient();
+});
+
+const searchTagIngredient = () => {
+  ingredientContainer.innerHTML = "";
+  resultIngredients = [];
+
+  const searchValue = searchIngredient.value.toLowerCase().trim();
+
+  if (searchValue.length >= 1) {
+    eraseIngredientValue.classList.add("display-flex");
+  } else {
+    eraseIngredientValue.classList.remove("display-flex");
+  }
+
+  for (let i = 0; i < ingredients.length; i++) {
+    const ingredient = ingredients[i];
+    const ingredientMatch = ingredient.toLowerCase().includes(searchValue);
+
+    if (ingredientMatch) {
+      resultIngredients.push(ingredient);
+    }
+  }
+  console.log(resultIngredients);
+
+  for (let i = 0; i < resultIngredients.length; i++) {
+    ingredientContainer.insertAdjacentHTML(
+      "beforeend",
+      createIngredient(resultIngredients[i])
+    );
+  }
+
+  displayTagSelected();
+};
+
+searchAppliance.addEventListener("input", () => {
+  searchTagAppliance();
+});
+
+const searchTagAppliance = () => {
+  applianceContainer.innerHTML = "";
+  const searchValue = searchAppliance.value.toLowerCase().trim();
+
+  if (searchValue.length >= 1) {
+    eraseApplianceValue.classList.add("display-flex");
+  } else {
+    eraseApplianceValue.classList.remove("display-flex");
+  }
+
+  let resultAppliances = [];
+
+  for (let i = 0; i < appliances.length; i++) {
+    const appliance = appliances[i];
+    const applianceMatch = appliance.toLowerCase().includes(searchValue);
+
+    if (applianceMatch) {
+      resultAppliances.push(appliance);
+    }
+  }
+
+  for (let i = 0; i < resultAppliances.length; i++) {
+    applianceContainer.insertAdjacentHTML(
+      "beforeend",
+      createIngredient(resultAppliances[i])
+    );
+  }
+
+  displayTagSelected();
+};
+
+searchUstensil.addEventListener("input", () => {
+  searchTagUstensil();
+});
+
+const searchTagUstensil = () => {
+  ustensilContainer.innerHTML = "";
+  const searchValue = searchUstensil.value.toLowerCase().trim();
+
+  if (searchValue.length >= 1) {
+    eraseUstensilValue.classList.add("display-flex");
+  } else {
+    eraseUstensilValue.classList.remove("display-flex");
+  }
+
+  let resultUstensils = [];
+
+  for (let i = 0; i < ustensils.length; i++) {
+    const ustensil = ustensils[i];
+    const ustensilMatch = ustensil.toLowerCase().includes(searchValue);
+
+    if (ustensilMatch) {
+      resultUstensils.push(ustensil);
+    }
+  }
+
+  for (let i = 0; i < resultUstensils.length; i++) {
+    ustensilContainer.insertAdjacentHTML(
+      "beforeend",
+      createIngredient(resultUstensils[i])
+    );
+  }
+
+  displayTagSelected();
+};
+
+eraseSearchValue.addEventListener("click", () => {
+  searchInput.value = "";
+});
+
+eraseIngredientValue.addEventListener("click", () => {
+  searchIngredient.value = "";
+  displayTags(recipes);
+  eraseIngredientValue.classList.remove("display-flex");
+});
+
+eraseApplianceValue.addEventListener("click", () => {
+  searchAppliance.value = "";
+  displayTags(recipes);
+  eraseApplianceValue.classList.remove("display-flex");
+});
+
+eraseUstensilValue.addEventListener("click", () => {
+  searchUstensil.value = "";
+  displayTags(recipes);
+  eraseUstensilValue.classList.remove("display-flex");
+});
 
 const main = () => {
   try {
