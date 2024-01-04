@@ -392,7 +392,6 @@ const searchTagIngredient = () => {
       resultIngredients.push(ingredient);
     }
   }
-  console.log(resultIngredients);
 
   for (let i = 0; i < resultIngredients.length; i++) {
     ingredientContainer.insertAdjacentHTML(
