@@ -10,6 +10,7 @@ const searchAppliance = document.querySelector(".search-tags-appliance");
 const searchUstensil = document.querySelector(".search-tags-ustensil");
 const searchTags = document.querySelectorAll(".search-tags-title");
 const tagSelectedGroup = document.querySelector(".tags-selected-group");
+const deleteTags = document.querySelectorAll(".delete-tag");
 
 const eraseSearchValue = document.querySelector(".erase-search-value");
 const eraseIngredientValue = document.querySelector(".erase-ingredient-value");
@@ -139,10 +140,9 @@ const displayCard = (recipes) => {
 };
 
 const displayTags = (recipes) => {
-  ingredientContainer.innerHTML = "";
-  applianceContainer.innerHTML = "";
-  ustensilContainer.innerHTML = "";
-
+  let ingredients = [];
+  let appliances = [];
+  let ustensils = [];
   recipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
       if (!ingredients.includes(ingredient.ingredient)) {
@@ -158,6 +158,7 @@ const displayTags = (recipes) => {
       }
     });
   });
+
   // Affiche les ingrédients dans le dropdown associé
   ingredientContainer.insertAdjacentHTML(
     "beforeend",
@@ -189,6 +190,16 @@ const displayTags = (recipes) => {
   );
 };
 
+deleteTags.forEach((deleteTag) => {
+  console.log(deleteTag);
+  deleteTag.addEventListener("click", () => {
+    nextElement.addEventListener("click", () => {
+      tagElement.classList.remove("selected");
+      nextElement.classList.remove("display-flex");
+    });
+  });
+});
+
 const displayTagSelected = () => {
   const tags = document.querySelectorAll(".tag");
   let selectedTags = [];
@@ -198,17 +209,15 @@ const displayTagSelected = () => {
   const handleTagClick = (event) => {
     const clickedTag = event.target.textContent.trim();
     const tagElement = event.target;
-    const nextElement = tagElement.childNodes[1];
     const tagIndex = selectedTags.indexOf(clickedTag);
 
     // On vérifie si le tag est déjà selectionné
     if (!tagElement.classList.contains("selected")) {
       tagElement.classList.add("selected");
-      nextElement.classList.add("display-flex");
-
-      nextElement.addEventListener("click", () => {
+      tagElement.childNodes[1].classList.add("display-flex");
+      tagElement.childNodes[1].addEventListener("click", () => {
         tagElement.classList.remove("selected");
-        nextElement.classList.remove("display-flex");
+        tagElement.childNodes[1].classList.remove("display-flex");
       });
     }
 
@@ -303,7 +312,7 @@ document.addEventListener("click", (event) => {
 
       const totalRecipes = filteredRecipes.length;
       const textTotalRecipes =
-        totalRecipes > 1
+        totalRecipes > 9
           ? `${totalRecipes} recettes`
           : `0${totalRecipes} recette`;
       nbRecipes.innerHTML = textTotalRecipes;
@@ -317,43 +326,30 @@ document.addEventListener("click", (event) => {
   }
 });
 
-searchInput.addEventListener("input", () => {
-  search();
+eraseSearchValue.addEventListener("click", () => {
+  searchInput.value = "";
+  displayCard(recipes);
+  displayTags(recipes);
+  eraseSearchValue.classList.remove("display-flex");
 });
 
-const search = () => {
-  const searchValue = searchInput.value.toLowerCase().trim();
+eraseIngredientValue.addEventListener("click", () => {
+  searchIngredient.value = "";
+  displayTags(recipes);
+  eraseIngredientValue.classList.remove("display-flex");
+});
 
-  if (searchValue.length > 2) {
-    eraseSearchValue.classList.add("display-flex");
-    // On ajouté dans les results les recettes qui correspondent à la valeur de l'input
-    result = recipes.filter((recipe) => {
-      const titleMatch = recipe.name.toLowerCase().includes(searchValue);
-      const ingredientsMatch = recipe.ingredients.some((ingredient) =>
-        ingredient.ingredient.toLowerCase().includes(searchValue)
-      );
-      const descriptionMatch = recipe.description
-        .toLowerCase()
-        .includes(searchValue);
-      return titleMatch || ingredientsMatch || descriptionMatch;
-    });
-    displayCard(result);
-    nbRecipes.innerHTML =
-      result.length > 1
-        ? `${result.length} recettes`
-        : `0${result.length} recette`;
-    displayTags(result);
-    displayTagSelected();
-  } else {
-    eraseSearchValue.classList.remove("display-flex");
-    displayCard(recipes);
-    nbRecipes.innerHTML =
-      totalRecipes > 1
-        ? `${totalRecipes} recettes`
-        : `0${totalRecipes} recette`;
-    displayTags(recipes);
-  }
-};
+eraseApplianceValue.addEventListener("click", () => {
+  searchAppliance.value = "";
+  displayTags(recipes);
+  eraseApplianceValue.classList.remove("display-flex");
+});
+
+eraseUstensilValue.addEventListener("click", () => {
+  searchUstensil.value = "";
+  displayTags(recipes);
+  eraseUstensilValue.classList.remove("display-flex");
+});
 
 searchIngredient.addEventListener("input", () => {
   searchTagIngredient();
@@ -361,12 +357,15 @@ searchIngredient.addEventListener("input", () => {
 
 const searchTagIngredient = () => {
   ingredientContainer.innerHTML = "";
+
   const searchValue = searchIngredient.value.toLowerCase().trim();
+
   if (searchValue.length >= 1) {
     eraseIngredientValue.classList.add("display-flex");
   } else {
     eraseIngredientValue.classList.remove("display-flex");
   }
+
   resultIngredients = ingredients.filter((ingredient) => {
     const ingredientMatch = ingredient.toLowerCase().includes(searchValue);
     return ingredientMatch;
@@ -379,6 +378,7 @@ const searchTagIngredient = () => {
       })
       .join(" ")
   );
+
   displayTagSelected();
 };
 
@@ -389,11 +389,13 @@ searchAppliance.addEventListener("input", () => {
 const searchTagAppliance = () => {
   applianceContainer.innerHTML = "";
   const searchValue = searchAppliance.value.toLowerCase().trim();
+
   if (searchValue.length >= 1) {
     eraseApplianceValue.classList.add("display-flex");
   } else {
     eraseApplianceValue.classList.remove("display-flex");
   }
+
   resultAppliances = appliances.filter((appliance) => {
     const applianceMatch = appliance.toLowerCase().includes(searchValue);
     return applianceMatch;
@@ -406,6 +408,7 @@ const searchTagAppliance = () => {
       })
       .join(" ")
   );
+
   displayTagSelected();
 };
 
@@ -416,11 +419,13 @@ searchUstensil.addEventListener("input", () => {
 const searchTagUstensil = () => {
   ustensilContainer.innerHTML = "";
   const searchValue = searchUstensil.value.toLowerCase().trim();
+
   if (searchValue.length >= 1) {
     eraseUstensilValue.classList.add("display-flex");
   } else {
     eraseUstensilValue.classList.remove("display-flex");
   }
+
   resultUstensils = ustensils.filter((ustensil) => {
     const ustensilMatch = ustensil.toLowerCase().includes(searchValue);
     return ustensilMatch;
@@ -433,27 +438,51 @@ const searchTagUstensil = () => {
       })
       .join(" ")
   );
+
   displayTagSelected();
 };
 
-eraseSearchValue.addEventListener("click", () => {
-  searchInput.value = "";
+searchInput.addEventListener("input", () => {
+  search();
 });
-eraseIngredientValue.addEventListener("click", () => {
-  searchIngredient.value = "";
-  displayTags(recipes);
-  eraseIngredientValue.classList.remove("display-flex");
-});
-eraseApplianceValue.addEventListener("click", () => {
-  searchAppliance.value = "";
-  displayTags(recipes);
-  eraseApplianceValue.classList.remove("display-flex");
-});
-eraseUstensilValue.addEventListener("click", () => {
-  searchUstensil.value = "";
-  displayTags(recipes);
-  eraseUstensilValue.classList.remove("display-flex");
-});
+
+const search = () => {
+  const searchValue = searchInput.value.toLowerCase().trim();
+
+  if (searchValue.length > 2) {
+    eraseSearchValue.classList.add("display-flex");
+    ingredientContainer.innerHTML = "";
+    applianceContainer.innerHTML = "";
+    ustensilContainer.innerHTML = "";
+    // On ajouté dans les results les recettes qui correspondent à la valeur de l'input
+    result = recipes.filter((recipe) => {
+      const titleMatch = recipe.name.toLowerCase().includes(searchValue);
+      const ingredientsMatch = recipe.ingredients.some((ingredient) =>
+        ingredient.ingredient.toLowerCase().includes(searchValue)
+      );
+      const descriptionMatch = recipe.description
+        .toLowerCase()
+        .includes(searchValue);
+      return titleMatch || ingredientsMatch || descriptionMatch;
+    });
+    displayCard(result);
+    displayTags(result);
+    displayTagSelected();
+    nbRecipes.innerHTML =
+      result.length > 9
+        ? `${result.length} recettes`
+        : `0${result.length} recette`;
+  } else {
+    eraseSearchValue.classList.remove("display-flex");
+    displayCard(recipes);
+    displayTags(recipes);
+    displayTagSelected();
+    nbRecipes.innerHTML =
+      totalRecipes > 1
+        ? `${totalRecipes} recettes`
+        : `0 ${totalRecipes} recette`;
+  }
+};
 
 const main = () => {
   try {
