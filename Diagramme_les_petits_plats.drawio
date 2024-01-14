@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-10T22:59:19.162Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="WjuTp7EJB1R9tx6HsX1c" version="22.1.18" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-14T12:57:42.925Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="7J2tcTB8RBo1qLO-3vBS" version="22.1.18" type="github">
   <diagram name="Page-1" id="IW9jL5fg127tjISvftam">
     <mxGraphModel dx="2074" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -12,7 +12,7 @@
             <mxPoint x="470" y="110" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="0X1cIiPEp1Rx1hilPjo3-2" value="User fill search input" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+        <mxCell id="0X1cIiPEp1Rx1hilPjo3-2" value="User fill search with 3 inputs" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="354" y="160" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0X1cIiPEp1Rx1hilPjo3-4" value="Recipe match" style="rhombus;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
@@ -25,7 +25,7 @@
           <mxGeometry x="354" y="525" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0X1cIiPEp1Rx1hilPjo3-8" value="Display tags with result" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
-          <mxGeometry x="354" y="650" width="120" height="60" as="geometry" />
+          <mxGeometry x="354" y="610" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="0X1cIiPEp1Rx1hilPjo3-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=14;" parent="1" source="0X1cIiPEp1Rx1hilPjo3-2" target="0X1cIiPEp1Rx1hilPjo3-4" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -67,14 +67,20 @@
         <mxCell id="0X1cIiPEp1Rx1hilPjo3-18" value="No" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="550" y="250" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="rdp8Da037zEd8DNnmX8C-1" value="Display total recipes with result" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="354" y="780" width="120" height="60" as="geometry" />
+        <mxCell id="ao0eAfq2EpvabcL7994n-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rdp8Da037zEd8DNnmX8C-1" target="ao0eAfq2EpvabcL7994n-1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rdp8Da037zEd8DNnmX8C-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=14;" edge="1" parent="1" source="0X1cIiPEp1Rx1hilPjo3-8" target="rdp8Da037zEd8DNnmX8C-1">
+        <mxCell id="rdp8Da037zEd8DNnmX8C-1" value="Display total recipes with result" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="354" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rdp8Da037zEd8DNnmX8C-2" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=14;" parent="1" source="0X1cIiPEp1Rx1hilPjo3-8" target="rdp8Da037zEd8DNnmX8C-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="390" y="600" as="sourcePoint" />
             <mxPoint x="440" y="550" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="ao0eAfq2EpvabcL7994n-1" value="Display tags selected" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="810" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
