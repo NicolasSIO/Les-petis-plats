@@ -140,9 +140,6 @@ const displayCard = (recipes) => {
 };
 
 const displayTags = (recipes) => {
-  let ingredients = [];
-  let appliances = [];
-  let ustensils = [];
   recipes.forEach((recipe) => {
     recipe.ingredients.forEach((ingredient) => {
       if (!ingredients.includes(ingredient.ingredient)) {
